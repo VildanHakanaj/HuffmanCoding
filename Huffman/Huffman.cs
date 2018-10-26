@@ -93,19 +93,19 @@ namespace Huffman
         {
             if (!IsLeafNode(node))                                 //Check if we have hit the leaf node
             {
-                CreateCodes(node.Left, code += "0");               //Recursively Calling the left and right nodes getting to the bottom of the tree
-                CreateCodes(node.Right, code += "1");              //Same thing here going all the way to the right
+                CreateCodes(node.Left, code + "0");               //Recursively Calling the left and right nodes getting to the bottom of the tree
+                CreateCodes(node.Right, code + "1");
             }
-            else                                                   //Else we have reached the bottom of the tree
-            {
+
+            //Else we have reached the bottom of the tree
+            if (IsLeafNode(node)){
                 if (code == "")                                    //Edge case for when there is only one letter 
                 {
-                    code += "0";
+                    code = "0";
                 }
 
                 D.Add(node.Letter, code);                          //Add the letter{key} and the code{value}
             }
-            Console.ReadKey();
         } 
     
         /// <summary>
@@ -117,7 +117,7 @@ namespace Huffman
             string Code = "";                                    //Empty string to contain the code
             foreach (char letter in Message)                     //Loop through the message
             {
-                D.TryGetValue(letter, out Code);                 //Get the code based on the letter passed
+               Code += D[letter];                                //Get the code based on the letter passed
             }
             return Code;                                         //Return the COde
         }
@@ -136,7 +136,7 @@ namespace Huffman
             Node CurrentNode = Root;                             //Dummy node 
             for (int i = 0; i < code.Length; i++)                //Loop through the code
             {
-                if (code[i] == 0)                                //If the code number is 0 move to the left of the tree
+                if (code[i] == '0')                                //If the code number is 0 move to the left of the tree
                 {
                     CurrentNode = CurrentNode.Left;
                 }
@@ -155,9 +155,6 @@ namespace Huffman
             return Answer;                                        //Return the full message back
         }
         #endregion
-
-
-
 
         #region Helper Methods
         /// <summary>
