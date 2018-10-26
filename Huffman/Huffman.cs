@@ -15,7 +15,7 @@ namespace Huffman
         private PriorityQueue<Node> pq = new PriorityQueue<Node>(35);          //Priority queue
         private Dictionary<char, string> D = new Dictionary<char, string>();   //Hash Table
         private int[] freq = new int[FREQ_SIZE];                               //Frequency Array
-        private Node root;
+        private Node Root;
         #endregion
 
         public Huffman(string Message)
@@ -23,13 +23,20 @@ namespace Huffman
             this.Message = Message;
         }
 
+        #region Main Methods
         /// <summary>
         /// Runs all the necessary methods for 
         /// the huffman to work properly
         /// </summary>
         public void RunHuffman()
         {
+            string v; 
             FindFrequency();
+            Root = Build();
+            CreateCodes(Root, "");
+            v = Encode();
+            //Decode(v);
+            
         }
 
         /// <summary>
@@ -97,7 +104,19 @@ namespace Huffman
 
                 D.Add(node.Letter, code);                          //Add the letter{key} and the code{value}
             }
+        } 
+    
+        private string Encode()
+        {
+            string Code = "";
+            foreach (char letter in Message)
+            {
+                D.TryGetValue(letter, out Code);
+            }
+            Console.ReadKey();
+            return Code;
         }
+        #endregion
 
 
 
