@@ -39,6 +39,17 @@ namespace Huffman
             }
         }
 
-        
+        #region Helper Methods
+        public void CreateLeafNode()
+        {
+            for (int i = 0; i < freq.Length; i++)
+            {
+                if (freq[i] > 0)
+                {
+                    pq.Add(new Node((char)i, freq[i]));
+                }
+            }
+        }
+        #endregion
     }
 }
