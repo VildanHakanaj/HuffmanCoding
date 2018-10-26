@@ -21,5 +21,24 @@ namespace Huffman
         {
             this.Message = Message;
         }
+
+        public void RunHuffman()
+        {
+
+        }
+
+        /// <summary>
+        /// Finds the frequency of each unique letter
+        /// in the string
+        /// </summary>
+        private void FindFrequency()
+        {
+            foreach (char letter in Message)         //Get each letter
+            {
+                ++freq[letter];                      //Increment the corresponding ascii number with the letter
+            }
+        }
+
+        
     }
 }
