@@ -10,6 +10,8 @@ namespace Huffman
     {
         static void Main(string[] args)
         {
+            Huffman Huff = new Huffman("Viildan");
+            Huff.RunHuffman();
         }
     }
 }

@@ -35,8 +35,9 @@ namespace Huffman
             Root = Build();
             CreateCodes(Root, "");
             v = Encode();
-            //Decode(v);
-            
+            Console.WriteLine("The encoded message: " + v);
+            Console.WriteLine("The decoded message: " + Decode(v));
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -104,17 +105,54 @@ namespace Huffman
 
                 D.Add(node.Letter, code);                          //Add the letter{key} and the code{value}
             }
+            Console.ReadKey();
         } 
     
+        /// <summary>
+        /// Finds the letter of the messages and based on that it finds the code
+        /// </summary>
+        /// <returns>The final code at the end</returns>
         private string Encode()
         {
-            string Code = "";
-            foreach (char letter in Message)
+            string Code = "";                                    //Empty string to contain the code
+            foreach (char letter in Message)                     //Loop through the message
             {
-                D.TryGetValue(letter, out Code);
+                D.TryGetValue(letter, out Code);                 //Get the code based on the letter passed
             }
-            Console.ReadKey();
-            return Code;
+            return Code;                                         //Return the COde
+        }
+
+        /// <summary>
+        /// Based on the code given to it 
+        /// will travers the tree down 
+        /// finding the leaf nodes and storing the answer to the string
+        /// 
+        /// </summary>
+        /// <param name="code">0, 1 passed from when encoded</param>
+        /// <returns>The normal message back</returns>
+        private string Decode(string code)
+        {
+            string Answer = "";                                  //Empty string to put the answer 
+            Node CurrentNode = Root;                             //Dummy node 
+            for (int i = 0; i < code.Length; i++)                //Loop through the code
+            {
+                if (code[i] == 0)                                //If the code number is 0 move to the left of the tree
+                {
+                    CurrentNode = CurrentNode.Left;
+                }
+                else                                             //Else move to the right of it
+                {
+                    CurrentNode = CurrentNode.Right;
+                }
+
+                if (IsLeafNode(CurrentNode))                     //If its a leaf node add the letter in the asnwer string 
+                {
+                    Answer += CurrentNode.Letter;
+                    CurrentNode = Root;
+                }
+            }
+
+            return Answer;                                        //Return the full message back
         }
         #endregion
 
