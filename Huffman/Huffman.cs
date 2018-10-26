@@ -15,6 +15,7 @@ namespace Huffman
         private PriorityQueue<Node> pq = new PriorityQueue<Node>(35);          //Priority queue
         private Dictionary<char, string> D = new Dictionary<char, string>();   //Hash Table
         private int[] freq = new int[FREQ_SIZE];                               //Frequency Array
+        private Node root;
         #endregion
 
         public Huffman(string Message)
@@ -74,6 +75,30 @@ namespace Huffman
 
         }
 
+        /// <summary>
+        /// Traverses down the tree until a leaf node is meat
+        /// and adds the letter and the code into the hash table
+        /// </summary>
+        /// <param name="node">The root of the tree</param>
+        /// <param name="code">The code corresponding to the letter</param>
+        private void CreateCodes(Node node, string code)
+        {
+            if (!IsLeafNode(node))                                 //Check if we have hit the leaf node
+            {
+                CreateCodes(node.Left, code += "0");               //Recursively Calling the left and right nodes getting to the bottom of the tree
+                CreateCodes(node.Right, code += "1");              //Same thing here going all the way to the right
+            }
+            else                                                   //Else we have reached the bottom of the tree
+            {
+                if (code == "")                                    //Edge case for when there is only one letter 
+                {
+                    code += "0";
+                }
+
+                D.Add(node.Letter, code);                          //Add the letter{key} and the code{value}
+            }
+        }
+
 
 
 
@@ -91,6 +116,16 @@ namespace Huffman
                 }
             }
         }
+
+        /// <summary>
+        /// Finds if node is a leaf node or not
+        /// </summary>
+        /// <param name="node">The node to be check for leaf</param>
+        /// <returns>
+        ///     [ ] True if the node is leaf
+        ///     [ ] False if the node is not leaf
+        /// </returns>
+        private bool IsLeafNode(Node node) => node.Left == null && node.Right == null;
         #endregion
     }
 }
