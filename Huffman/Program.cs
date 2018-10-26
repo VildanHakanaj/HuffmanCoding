@@ -10,7 +10,10 @@ namespace Huffman
     {
         static void Main(string[] args)
         {
-            Huffman Huff = new Huffman("Viildan");
+            string msg;
+            Console.Write("Enter the string you want run through Huffman: ");
+            msg = Console.ReadLine();
+            Huffman Huff = new Huffman(msg);
             Huff.RunHuffman();
         }
     }

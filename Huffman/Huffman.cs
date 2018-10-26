@@ -19,8 +19,6 @@ namespace Huffman
         public Huffman(string Message) => this.Message = Message;
         #endregion
 
-
-
         #region Main Methods
         /// <summary>
         /// Runs all the necessary methods for 

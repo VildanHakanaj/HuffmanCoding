@@ -331,5 +331,4 @@ ASALocalRun/
 
 #Extra
 *.sln
-/Properties
 *.config
